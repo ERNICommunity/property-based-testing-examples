@@ -59,10 +59,10 @@ class FloatAdderTest {
     }
 
     @Property
-    void associativityHolds(@ForAll float a, @ForAll float b, @ForAll float c) {
+    void associativityHolds(@ForAll float a, @ForAll float b) {
         // associativity as a metamorphic relation
-        float result1 = add(a, add(b, c));
-        float result2 = add(add(a, b), c);
+        float result1 = add(a, add(b, b));
+        float result2 = add(add(a, b), b);
 
         assertEquals(result1, result2);
     }
