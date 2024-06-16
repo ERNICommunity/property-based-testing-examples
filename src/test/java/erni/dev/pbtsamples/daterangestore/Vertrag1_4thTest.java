@@ -1,6 +1,6 @@
-package erni.dev.pbtsamples.contractstore;
+package erni.dev.pbtsamples.daterangestore;
 
-import erni.dev.pbtsamples.contractstore.contract.Contract;
+import erni.dev.pbtsamples.daterangestore.daterange.Version;
 import net.jqwik.api.*;
 import net.jqwik.api.domains.Domain;
 import net.jqwik.api.domains.DomainContext;
@@ -10,30 +10,30 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-public class ContractStore1_4thTest {
+public class Vertrag1_4thTest {
 
-    ContractStore1 store = new ContractStore1();
+    Vertrag1 store = new Vertrag1();
 
     @Property
-    @Domain(ContractStoreDomain.class)
-    void addContracts(@ForAll Contract contract1, @ForAll Contract contract2) {
+    @Domain(DateRangeStoreDomain.class)
+    void addDateRanges(@ForAll Version dateRange1, @ForAll Version dateRange2) {
         assertThatCode(() -> {
-            store.addContract(contract1);
-            store.addContract(contract2);
+            store.addDateRange(dateRange1);
+            store.addDateRange(dateRange2);
         }).doesNotThrowAnyException();
     }
 
     @Domain(DomainContext.Global.class)
-    static class ContractStoreDomain extends DomainContextBase {
+    static class DateRangeStoreDomain extends DomainContextBase {
 
         @Provide
-        Arbitrary<Contract> contracts() {
+        Arbitrary<Version> versionen() {
             return Combinators.combine(
                             Arbitraries.defaultFor(LocalDate.class),
                             Arbitraries.defaultFor(LocalDate.class)
                     )
                     .filter((begin, end) -> !begin.isAfter(end))
-                    .as(Contract::new);
+                    .as(Version::new);
         }
     }
 }

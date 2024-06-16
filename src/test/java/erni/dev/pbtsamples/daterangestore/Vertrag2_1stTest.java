@@ -1,7 +1,6 @@
-package erni.dev.pbtsamples.contractstore;
+package erni.dev.pbtsamples.daterangestore;
 
-import erni.dev.pbtsamples.contractstore.contract.Contract;
-import erni.dev.pbtsamples.contractstore.contract.DateRange;
+import erni.dev.pbtsamples.daterangestore.daterange.Version;
 import net.jqwik.api.*;
 import net.jqwik.api.domains.Domain;
 import net.jqwik.api.domains.DomainContext;
@@ -13,42 +12,40 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-public class ContractStore2_1stTest {
+public class Vertrag2_1stTest {
 
-    ContractStore2 store = new ContractStore2();
+    Vertrag2 store = new Vertrag2();
 
     @Property
-    @Domain(ContractStoreDomain.class)
-    void addContracts(@ForAll Contract contract1, @ForAll Contract contract2) {
+    @Domain(DateRangeStoreDomain.class)
+    void addDateRanges(@ForAll Version dateRange1, @ForAll Version dateRange2) {
         assertThatCode(() -> {
-            store.adjustAndInsertForMaxDateRange(contract1);
-            store.adjustAndInsertForMaxDateRange(contract2);
+            store.fuegeMaximalGueltigeVersionEin(dateRange1);
+            store.fuegeMaximalGueltigeVersionEin(dateRange2);
         }).doesNotThrowAnyException();
 
-        store.getContracts().stream()
-                .map(Contract::validityPeriod)
+        store.getDateRanges().stream()
                 .forEach(this::assertNoOverlap);
     }
 
-    private void assertNoOverlap(DateRange p1) {
-        Stream<DateRange> overlapping = store.getContracts().stream()
-                .map(Contract::validityPeriod)
+    private void assertNoOverlap(Version p1) {
+        Stream<Version> overlapping = store.getDateRanges().stream()
                 .filter(p2 -> p1.begin().isAfter(p2.end()) || p1.end().isBefore(p2.begin()));
 
         assertThat(overlapping.count()).isZero();
     }
 
     @Domain(DomainContext.Global.class)
-    static class ContractStoreDomain extends DomainContextBase {
+    static class DateRangeStoreDomain extends DomainContextBase {
 
         @Provide
-        Arbitrary<Contract> contracts() {
+        Arbitrary<Version> versionen() {
             return Combinators.combine(
                             Arbitraries.defaultFor(LocalDate.class),
                             Arbitraries.defaultFor(LocalDate.class)
                     )
                     .filter((begin, end) -> !begin.isAfter(end))
-                    .as(Contract::new);
+                    .as(Version::new);
         }
     }
 }
