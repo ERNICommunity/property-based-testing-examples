@@ -1,6 +1,6 @@
-package erni.dev.pbtsamples.daterangestore;
+package erni.dev.pbtsamples.vertragsversionen;
 
-import erni.dev.pbtsamples.daterangestore.daterange.Version;
+import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
 import net.jqwik.api.*;
 import net.jqwik.api.domains.Domain;
 import net.jqwik.api.domains.DomainContext;
@@ -10,21 +10,21 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-public class Vertrag1_4thTest {
+class Vertrag1_4thTest {
 
-    Vertrag1 store = new Vertrag1();
+    Vertrag1 vertrag = new Vertrag1();
 
     @Property
-    @Domain(DateRangeStoreDomain.class)
-    void addDateRanges(@ForAll Version dateRange1, @ForAll Version dateRange2) {
+    @Domain(VertragDomain.class)
+    void addDateRanges(@ForAll Version version1, @ForAll Version version2) {
         assertThatCode(() -> {
-            store.addDateRange(dateRange1);
-            store.addDateRange(dateRange2);
+            vertrag.fuegeHinzu(version1);
+            vertrag.fuegeHinzu(version2);
         }).doesNotThrowAnyException();
     }
 
     @Domain(DomainContext.Global.class)
-    static class DateRangeStoreDomain extends DomainContextBase {
+    static class VertragDomain extends DomainContextBase {
 
         @Provide
         Arbitrary<Version> versionen() {
