@@ -21,6 +21,16 @@ class Vertrag2Actions {
                         }));
     }
 
+    static Action.Independent<Vertrag2> ersetzeBestehendeVersionen() {
+
+        return () -> versionen()
+                .map(v -> Transformer.mutate(
+                        "ersetzeBestehendeVersionen(%s)".formatted(v),
+                        vertrag -> {
+                            vertrag.ersetzeBestehendeVersionen(v);
+                        }));
+    }
+
     static Arbitrary<Version> versionen() {
         return Combinators.combine(
                         Arbitraries.defaultFor(LocalDate.class),

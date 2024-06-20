@@ -36,12 +36,14 @@ public class Vertrag2 {
 
     public void ersetzeBestehendeVersionen(Version version) {
 
-        // Nicht behandelter Fall: Entferne Versionen, die von der neuen komplett überdeckt werden.
-
+        Collection<Version> bisherigeVersionen = new ArrayList<>(versionen);
+        versionen.clear();
+        versionen.addAll(bisherigeVersionen.stream().flatMap(v -> v.minus(version).stream()).toList());
         versionen.add(version);
+    }
 
-        // Verschiebe das Ende jener Versionen, die sich mit einer Nachfolge-Version überlappen, in Richtung eines früheren Datums.
-
-        // Nicht behandelter Fall: Fülle entstandene Lücken auf.
+    @Override
+    public String toString() {
+        return "Vertrag2{versionen=" + versionen + '}';
     }
 }

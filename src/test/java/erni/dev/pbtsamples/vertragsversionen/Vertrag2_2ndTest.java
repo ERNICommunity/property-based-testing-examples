@@ -1,7 +1,10 @@
 package erni.dev.pbtsamples.vertragsversionen;
 
 import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
-import net.jqwik.api.*;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import net.jqwik.api.Provide;
 import net.jqwik.api.state.ActionChain;
 import net.jqwik.api.statistics.Statistics;
 
@@ -13,9 +16,11 @@ class Vertrag2_2ndTest {
     @Property
 //    @Report(Reporting.GENERATED)
     void checkVertragsMutationen(@ForAll("vertragActions") ActionChain<Vertrag2> chain) {
+
         chain
                 .withInvariant(this::noOverlaps)
                 .run();
+
         Statistics.collect(chain);
     }
 
