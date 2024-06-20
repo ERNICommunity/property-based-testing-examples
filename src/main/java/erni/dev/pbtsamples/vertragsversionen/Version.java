@@ -1,4 +1,4 @@
-package erni.dev.pbtsamples.vertragsversionen.daterange;
+package erni.dev.pbtsamples.vertragsversionen;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-import static erni.dev.pbtsamples.vertragsversionen.daterange.Bugs.Versionsdifferenzenberechnung.b;
+import static erni.dev.pbtsamples.vertragsversionen.Bugs.Versionsdifferenzenberechnung.b;
 
 public record Version(LocalDate beginn, LocalDate ende) {
 

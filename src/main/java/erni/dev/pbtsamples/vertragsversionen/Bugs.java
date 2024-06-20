@@ -1,4 +1,4 @@
-package erni.dev.pbtsamples.vertragsversionen.daterange;
+package erni.dev.pbtsamples.vertragsversionen;
 
 class Bugs {
     enum Versionsdifferenzenberechnung {

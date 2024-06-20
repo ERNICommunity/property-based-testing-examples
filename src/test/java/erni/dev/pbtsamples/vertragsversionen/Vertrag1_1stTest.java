@@ -1,6 +1,5 @@
 package erni.dev.pbtsamples.vertragsversionen;
 
-import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

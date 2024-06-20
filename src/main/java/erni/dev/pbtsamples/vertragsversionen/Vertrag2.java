@@ -1,7 +1,5 @@
 package erni.dev.pbtsamples.vertragsversionen;
 
-import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
-
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,6 +1,5 @@
 package erni.dev.pbtsamples.vertragsversionen;
 
-import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;

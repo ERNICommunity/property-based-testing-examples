@@ -1,6 +1,4 @@
-package erni.dev.pbtsamples.vertragsversionen.exceptions;
-
-import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
+package erni.dev.pbtsamples.vertragsversionen;
 
 public class UeberlappendeVersionExistiertException extends RuntimeException {
 

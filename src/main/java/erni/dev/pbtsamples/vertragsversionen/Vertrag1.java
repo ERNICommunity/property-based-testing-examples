@@ -1,8 +1,5 @@
 package erni.dev.pbtsamples.vertragsversionen;
 
-import erni.dev.pbtsamples.vertragsversionen.daterange.Version;
-import erni.dev.pbtsamples.vertragsversionen.exceptions.UeberlappendeVersionExistiertException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
